@@ -5,6 +5,21 @@ const globalForPrisma = globalThis as unknown as {
   clientflowPrisma?: PrismaClient;
 };
 
+function normalizeConnectionString(connectionString: string) {
+  try {
+    const url = new URL(connectionString);
+    const sslMode = url.searchParams.get("sslmode");
+
+    if (sslMode && ["prefer", "require", "verify-ca"].includes(sslMode)) {
+      url.searchParams.set("sslmode", "verify-full");
+    }
+
+    return url.toString();
+  } catch {
+    return connectionString;
+  }
+}
+
 export function getPrisma() {
   if (!globalForPrisma.clientflowPrisma) {
     const connectionString = process.env.DATABASE_URL;
@@ -13,7 +28,7 @@ export function getPrisma() {
     }
 
     globalForPrisma.clientflowPrisma = new PrismaClient({
-      adapter: new PrismaPg({ connectionString }),
+      adapter: new PrismaPg({ connectionString: normalizeConnectionString(connectionString) }),
     });
   }
 
