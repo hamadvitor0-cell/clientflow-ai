@@ -213,7 +213,7 @@ Observacoes:
 
 - `DATABASE_URL` deve apontar para um banco PostgreSQL cloud.
 - `NEXTAUTH_SECRET` deve ser uma string segura.
-- `APP_URL` deve ser a URL final da Vercel, por exemplo `https://clientflow-ai.vercel.app`.
+- `APP_URL` deve ser a URL final da Vercel, por exemplo `https://clientflow-ai-beta.vercel.app`.
 - `OPENAI_API_KEY` e opcional. Sem ela, o sistema usa IA demo.
 
 Passo a passo via dashboard:
